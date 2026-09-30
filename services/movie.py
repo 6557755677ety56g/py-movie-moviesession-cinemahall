@@ -18,7 +18,7 @@ def get_movies(
 
 
 def get_movie_by_id(movie_id: int) -> Movie:
-    return Movie.objects.filter(id=movie_id).first()
+    return Movie.objects.get(id=movie_id)
 
 
 def create_movie(
@@ -31,8 +31,8 @@ def create_movie(
         title=movie_title,
         description=movie_description,
     )
-    if genres_ids is not None:
-        movie.genres.add(*genres_ids)
-    if actors_ids is not None:
-        movie.actors.add(*actors_ids)
+    if genres_ids:
+        movie.genres.set(genres_ids)
+    if actors_ids:
+        movie.actors.set(actors_ids)
     return movie
